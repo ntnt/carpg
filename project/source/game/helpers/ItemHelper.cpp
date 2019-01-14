@@ -16,17 +16,17 @@ int treasure_value[] = {
 	900, //7
 	1200, //8
 	1500, //9
-	1900, //10
-	2400, //11
-	2900, //12
-	3400, //13
+	2000, //10
+	2500, //11
+	3000, //12
+	3500, //13
 	4000, //14
-	4600, //15
-	5300, //16
-	6000, //17
-	6800, //18
-	7600, //19
-	8500 //20
+	5000, //15
+	6000, //16
+	7000, //17
+	8000, //18
+	9000, //19
+	10000 //20
 };
 
 const float price_mod_buy[] = { 1.75f, 1.25f, 1.f, 0.9f, 0.775f };
@@ -108,7 +108,7 @@ void ItemHelper::GenerateTreasure(int level, int _count, vector<ItemSlot>& items
 	if(extra)
 		InsertItemBare(items, ItemList::GetItem("treasure"));
 
-	gold = value + level * 5;
+	gold = value + Random(5 * level, 10 * level);
 }
 
 //=================================================================================================

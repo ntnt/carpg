@@ -518,8 +518,7 @@ public:
 	bool Quickload(bool from_console);
 	void ClearGameVars(bool new_game);
 	void ClearGame();
-	int CalculateQuestReward(int gold);
-	void AddReward(int gold) { AddGold(CalculateQuestReward(gold), nullptr, true, txQuestCompletedGold, 4.f, false); }
+	void AddReward(int gold) { AddGold(gold, nullptr, true, txQuestCompletedGold, 4.f, false); }
 	SOUND GetItemSound(const Item* item);
 	void Unit_StopUsingUsable(LevelContext& ctx, Unit& unit, bool send = true);
 	void EnterLevel(LocationGenerator* loc_gen);

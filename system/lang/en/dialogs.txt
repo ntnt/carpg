@@ -1076,7 +1076,7 @@ dialog q_bandits_collect_toll_timeout {
 //==============================================================================
 dialog q_bandits_collect_toll_end {
 	0 "Finally, someone on whom you can rely on. Well done with these bandits, that will teach them for some time."
-	1 "Take this 400 gold pieces as reward."
+	1 "Take this 1500 gold pieces as reward."
 }
 
 //==============================================================================
@@ -1156,7 +1156,7 @@ dialog q_deliver_letter_give {
 //==============================================================================
 dialog q_deliver_letter_end {
 	0 "Good. Show me that letter with answer."
-	1 "I see that you are responsible, here's your 100 gold pieces."
+	1 "I see that you are responsible, here's your 250 gold pieces."
 	2 "I could use more people like you."
 }
 
@@ -1174,9 +1174,9 @@ dialog q_deliver_parcel_start {
 dialog q_deliver_parcel_give {
 	0 "What have you got for me?"
 	1 "You were supposed to deliver the parcel sooner, but better late than never."
-	2 "Take this 125 gold pieces."
+	2 "Take this 250 gold pieces."
 	3 "You were supposed to deliver the parcel before. Now its contents is good for nothing!"
-	4 "Good job. Here's your 250 gold pieces."
+	4 "Good job. Here's your 500 gold pieces."
 }
 
 //==============================================================================

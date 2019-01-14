@@ -1079,7 +1079,7 @@ dialog q_bandits_collect_toll_timeout {
 //==============================================================================
 dialog q_bandits_collect_toll_end {
 	0 "Wreszcie ktoœ na kim mo¿na polegaæ. Dobra robota z tymi bandytami, to ich nauczy na jakiœ czas."
-	1 "WeŸ to 400 sztuk z³ota w nagrodê."
+	1 "WeŸ to 1500 sztuk z³ota w nagrodê."
 }
 
 //==============================================================================
@@ -1159,7 +1159,7 @@ dialog q_deliver_letter_give {
 //==============================================================================
 dialog q_deliver_letter_end {
 	0 "Dobrze. Poka¿ ten list z odpowiedzi¹."
-	1 "Widzê, ¿e jesteœ odpowiedzialny, oto twoje 100 sztuk z³ota."
+	1 "Widzê, ¿e jesteœ odpowiedzialny, oto twoje 250 sztuk z³ota."
 	2 "Przyda³oby mi siê wiêcej ludzi takich jak ty."
 }
 
@@ -1177,9 +1177,9 @@ dialog q_deliver_parcel_start {
 dialog q_deliver_parcel_give {
 	0 "Co masz dla mnie?"
 	1 "Mia³eœ dostarczyæ tê paczkê wczeœniej, ale lepiej póŸno ni¿ wcale."
-	2 "Masz tu 125 sztuk z³ota."
+	2 "Masz tu 250 sztuk z³ota."
 	3 "Mia³eœ dostarczyæ tê paczkê wczeœniej. Teraz jej zawartoœæ na nic mi siê nie przyda!"
-	4 "Dobra robota. Oto twoje 250 sztuk z³ota."
+	4 "Dobra robota. Oto twoje 500 sztuk z³ota."
 }
 
 //==============================================================================

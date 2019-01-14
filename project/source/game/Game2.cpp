@@ -9175,11 +9175,6 @@ void Game::AddGold(int count, vector<Unit*>* units, bool show, cstring msg, floa
 		gui->messages->AddGameMsg(Format(msg, pc->gold_get), time);
 }
 
-int Game::CalculateQuestReward(int gold)
-{
-	return gold * (90 + Team.GetActiveTeamSize() * 10) / 100;
-}
-
 bool Game::CanWander(Unit& u)
 {
 	if(L.city_ctx && u.ai->loc_timer <= 0.f && !dont_wander && IS_SET(u.data->flags, F_AI_WANDERS))
