@@ -444,7 +444,6 @@ public:
 	uint TestGameData(bool major);
 	void TestUnitSpells(const SpellList& spells, string& errors, uint& count);
 	Unit* CreateUnit(UnitData& base, int level = -1, Human* human_data = nullptr, Unit* test_unit = nullptr, bool create_physics = true, bool custom = false);
-	void ParseItemScript(Unit& unit, const ItemScript* script);
 	bool CheckForHit(LevelContext& ctx, Unit& unit, Unit*& hitted, Vec3& hitpoint);
 	bool CheckForHit(LevelContext& ctx, Unit& unit, Unit*& hitted, Mesh::Point& hitbox, Mesh::Point* bone, Vec3& hitpoint);
 	void UpdateParticles(LevelContext& ctx, float dt);

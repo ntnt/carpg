@@ -3581,7 +3581,7 @@ Unit* Game::CreateUnit(UnitData& base, int level, Human* human_data, Unit* test_
 		ItemScript* script = base.item_script;
 		if(base.stat_profile && !base.stat_profile->subprofiles.empty() && base.stat_profile->subprofiles[u->stats->subprofile.index]->item_script)
 			script = base.stat_profile->subprofiles[u->stats->subprofile.index]->item_script;
-		ParseItemScript(*u, script);
+		script->Parse(*u);
 		SortItems(u->items);
 		u->RecalculateWeight();
 		if(!ResourceManager::Get().IsLoadScreen())
@@ -3683,186 +3683,6 @@ Unit* Game::CreateUnit(UnitData& base, int level, Human* human_data, Unit* test_
 	}
 
 	return u;
-}
-
-//=================================================================================================
-void GiveItem(Unit& unit, const int*& ps, int count)
-{
-	int type = *ps;
-	++ps;
-	switch(type)
-	{
-	case PS_ITEM:
-		unit.AddItemAndEquipIfNone((const Item*)(*ps), count);
-		break;
-	case  PS_LIST:
-		{
-			const ItemList& lis = *(const ItemList*)(*ps);
-			for(int i = 0; i < count; ++i)
-				unit.AddItemAndEquipIfNone(lis.Get());
-		}
-		break;
-	case PS_LEVELED_LIST:
-		{
-			const LeveledItemList& lis = *(const LeveledItemList*)(*ps);
-			for(int i = 0; i < count; ++i)
-				unit.AddItemAndEquipIfNone(lis.Get(unit.level + Random(-2, 1)));
-		}
-		break;
-	case PS_LEVELED_LIST_MOD:
-		{
-			int mod = *ps++;
-			const LeveledItemList& lis = *(const LeveledItemList*)(*ps);
-			for(int i = 0; i < count; ++i)
-				unit.AddItemAndEquipIfNone(lis.Get(unit.level + Random(-2, 1) + mod));
-		}
-		break;
-	case PS_SPECIAL_ITEM:
-		{
-			int special = *ps;
-			const LeveledItemList& lis = ItemScript::GetSpecial(special, unit.stats->subprofile.value);
-			for(int i = 0; i < count; ++i)
-				unit.AddItemAndEquipIfNone(lis.Get(unit.level + Random(-2, 1)));
-		}
-		break;
-	case PS_SPECIAL_ITEM_MOD:
-		{
-			int mod = *ps++;
-			int special = *ps;
-			const LeveledItemList& lis = ItemScript::GetSpecial(special, unit.stats->subprofile.value);
-			for(int i = 0; i < count; ++i)
-				unit.AddItemAndEquipIfNone(lis.Get(unit.level + Random(-2, 1) + mod));
-		}
-	}
-
-	++ps;
-}
-
-//=================================================================================================
-void SkipItem(const int*& ps, int count)
-{
-	for(int i = 0; i < count; ++i)
-	{
-		int type = *ps;
-		++ps;
-		if(type == PS_LEVELED_LIST_MOD || type == PS_SPECIAL_ITEM_MOD)
-			++ps;
-		++ps;
-	}
-}
-
-void Game::ParseItemScript(Unit& unit, const ItemScript* script)
-{
-	assert(script);
-
-	const int* ps = script->code.data();
-	int a, b, depth = 0, depth_if = 0;
-
-	while(*ps != PS_END)
-	{
-		ParseScript type = (ParseScript)*ps;
-		++ps;
-
-		switch(type)
-		{
-		case PS_ONE:
-			if(depth == depth_if)
-				GiveItem(unit, ps, 1);
-			else
-				SkipItem(ps, 1);
-			break;
-		case PS_ONE_OF_MANY:
-			a = *ps;
-			++ps;
-			if(depth == depth_if)
-			{
-				b = Rand() % a;
-				for(int i = 0; i < a; ++i)
-				{
-					if(i == b)
-						GiveItem(unit, ps, 1);
-					else
-						SkipItem(ps, 1);
-				}
-			}
-			else
-				SkipItem(ps, a);
-			break;
-		case PS_CHANCE:
-			a = *ps;
-			++ps;
-			if(depth == depth_if && Rand() % 100 < a)
-				GiveItem(unit, ps, 1);
-			else
-				SkipItem(ps, 1);
-			break;
-		case PS_CHANCE2:
-			a = *ps;
-			++ps;
-			if(depth == depth_if)
-			{
-				if(Rand() % 100 < a)
-				{
-					GiveItem(unit, ps, 1);
-					SkipItem(ps, 1);
-				}
-				else
-				{
-					SkipItem(ps, 1);
-					GiveItem(unit, ps, 1);
-				}
-			}
-			else
-				SkipItem(ps, 2);
-			break;
-		case PS_IF_CHANCE:
-			a = *ps;
-			if(depth == depth_if && Rand() % 100 < a)
-				++depth_if;
-			++depth;
-			++ps;
-			break;
-		case PS_IF_LEVEL:
-			if(depth == depth_if && unit.level >= *ps)
-				++depth_if;
-			++depth;
-			++ps;
-			break;
-		case PS_ELSE:
-			if(depth == depth_if)
-				--depth_if;
-			else if(depth == depth_if + 1)
-				++depth_if;
-			break;
-		case PS_END_IF:
-			if(depth == depth_if)
-				--depth_if;
-			--depth;
-			break;
-		case PS_MANY:
-			a = *ps;
-			++ps;
-			if(depth == depth_if)
-				GiveItem(unit, ps, a);
-			else
-				SkipItem(ps, 1);
-			break;
-		case PS_RANDOM:
-			a = *ps;
-			++ps;
-			b = *ps;
-			++ps;
-			a = Random(a, b);
-			if(depth == depth_if && a > 0)
-				GiveItem(unit, ps, a);
-			else
-				SkipItem(ps, 1);
-			break;
-		default:
-			assert(0);
-			break;
-		}
-	}
 }
 
 bool Game::CheckForHit(LevelContext& ctx, Unit& unit, Unit*& hitted, Vec3& hitpoint)
@@ -4016,90 +3836,28 @@ bool Game::CheckForHit(LevelContext& ctx, Unit& _unit, Unit*& _hitted, Mesh::Poi
 
 void Game::UpdateParticles(LevelContext& ctx, float dt)
 {
-	// aktualizuj cz¹steczki
-	bool deletions = false;
-	for(vector<ParticleEmitter*>::iterator it = ctx.pes->begin(), end = ctx.pes->end(); it != end; ++it)
+	LoopAndRemove(*ctx.pes, [dt](ParticleEmitter* pe)
 	{
-		ParticleEmitter& pe = **it;
-
-		if(pe.emisions == 0 || (pe.life > 0 && (pe.life -= dt) <= 0.f))
-			pe.destroy = true;
-
-		if(pe.destroy && pe.alive == 0)
+		if(pe->Update(dt))
 		{
-			deletions = true;
-			if(pe.manual_delete == 0)
-				delete *it;
+			if(pe->manual_delete == 0)
+				delete pe;
 			else
-				pe.manual_delete = 2;
-			*it = nullptr;
-			continue;
+				pe->manual_delete = 2;
+			return true;
 		}
+		return false;
+	});
 
-		// aktualizuj cz¹steczki
-		for(vector<Particle>::iterator it2 = pe.particles.begin(), end2 = pe.particles.end(); it2 != end2; ++it2)
-		{
-			Particle& p = *it2;
-			if(!p.exists)
-				continue;
-
-			if((p.life -= dt) <= 0.f)
-			{
-				p.exists = false;
-				--pe.alive;
-			}
-			else
-			{
-				p.pos += p.speed * dt;
-				p.speed.y -= p.gravity * dt;
-			}
-		}
-
-		// emisja
-		if(!pe.destroy && (pe.emisions == -1 || pe.emisions > 0) && ((pe.time += dt) >= pe.emision_interval))
-		{
-			if(pe.emisions > 0)
-				--pe.emisions;
-			pe.time -= pe.emision_interval;
-
-			int count = min(Random(pe.spawn_min, pe.spawn_max), pe.max_particles - pe.alive);
-			vector<Particle>::iterator it2 = pe.particles.begin();
-
-			for(int i = 0; i < count; ++i)
-			{
-				while(it2->exists)
-					++it2;
-
-				Particle& p = *it2;
-				p.exists = true;
-				p.gravity = 9.81f;
-				p.life = pe.particle_life;
-				p.pos = pe.pos + Vec3::Random(pe.pos_min, pe.pos_max);
-				p.speed = Vec3::Random(pe.speed_min, pe.speed_max);
-			}
-
-			pe.alive += count;
-		}
-	}
-
-	if(deletions)
-		RemoveNullElements(ctx.pes);
-
-	// aktualizuj cz¹steczki szlakowe
-	deletions = false;
-
-	for(vector<TrailParticleEmitter*>::iterator it = ctx.tpes->begin(), end = ctx.tpes->end(); it != end; ++it)
+	LoopAndRemove(*ctx.tpes, [dt](TrailParticleEmitter* tpe)
 	{
-		if((*it)->Update(dt, nullptr, nullptr))
+		if(tpe->Update(dt, nullptr, nullptr))
 		{
-			delete *it;
-			*it = nullptr;
-			deletions = true;
+			delete tpe;
+			return true;
 		}
-	}
-
-	if(deletions)
-		RemoveNullElements(ctx.tpes);
+		return false;
+	});
 }
 
 Game::ATTACK_RESULT Game::DoAttack(LevelContext& ctx, Unit& unit)

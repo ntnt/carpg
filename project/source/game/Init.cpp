@@ -17,7 +17,6 @@
 #include "ScriptManager.h"
 #include "SaveState.h"
 #include "World.h"
-#include "DirectX.h"
 #include "LocationGeneratorFactory.h"
 #include "Pathfinding.h"
 #include "Level.h"
@@ -114,28 +113,18 @@ void Game::PreconfigureGame()
 //=================================================================================================
 void Game::CreatePlaceholderResources()
 {
-	// create item missing texture
-	SURFACE surf;
-	D3DLOCKED_RECT rect;
-
-	V(GetRender()->GetDevice()->CreateTexture(ITEM_IMAGE_SIZE, ITEM_IMAGE_SIZE, 0, 0, D3DFMT_A8R8G8B8, D3DPOOL_MANAGED, &missing_texture, nullptr));
-	V(missing_texture->GetSurfaceLevel(0, &surf));
-	V(surf->LockRect(&rect, nullptr, 0));
-
-	const DWORD col[2] = { Color(255, 0, 255), Color(0, 255, 0) };
-
+	missing_texture = GetRender()->CreateTexture(Int2(ITEM_IMAGE_SIZE, ITEM_IMAGE_SIZE));
+	TextureLock lock(missing_texture);
+	const uint col[2] = { Color(255, 0, 255), Color(0, 255, 0) };
 	for(int y = 0; y < ITEM_IMAGE_SIZE; ++y)
 	{
-		DWORD* pix = (DWORD*)(((byte*)rect.pBits) + rect.Pitch*y);
+		uint* pix = lock[y];
 		for(int x = 0; x < ITEM_IMAGE_SIZE; ++x)
 		{
 			*pix = col[(x >= ITEM_IMAGE_SIZE / 2 ? 1 : 0) + (y >= ITEM_IMAGE_SIZE / 2 ? 1 : 0) % 2];
 			++pix;
 		}
 	}
-
-	surf->UnlockRect();
-	surf->Release();
 }
 
 //=================================================================================================
