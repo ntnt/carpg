@@ -82,6 +82,9 @@
     <Filter Include="2. engine\resources">
       <UniqueIdentifier>{20e4856c-a4ec-49d1-bea8-1656b3df0327}</UniqueIdentifier>
     </Filter>
+    <Filter Include="2. engine\shaders">
+      <UniqueIdentifier>{34ab1f4f-0517-4a09-8f77-8a2fe8dafc72}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="source\resource\PickLanguage.cpp">
@@ -825,6 +828,9 @@
     </ClCompile>
     <ClCompile Include="source\engine\RenderTarget.cpp">
       <Filter>2. engine</Filter>
+    </ClCompile>
+    <ClCompile Include="source\engine\ParticleShader.cpp">
+      <Filter>2. engine\shaders</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -1692,6 +1698,9 @@
     </ClInclude>
     <ClInclude Include="source\engine\Render.h">
       <Filter>2. engine</Filter>
+    </ClInclude>
+    <ClInclude Include="source\engine\ParticleShader.h">
+      <Filter>2. engine\shaders</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

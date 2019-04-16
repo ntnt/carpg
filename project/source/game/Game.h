@@ -214,7 +214,6 @@ public:
 	void DrawBillboards(const vector<Billboard>& billboards);
 	void DrawExplosions(const vector<Explo*>& explos);
 	void DrawParticles(const vector<ParticleEmitter*>& pes);
-	void DrawTrailParticles(const vector<TrailParticleEmitter*>& tpes);
 	void DrawLightings(const vector<Electro*>& electros);
 	void DrawStunEffects(const vector<StunEffect>& stuns);
 	void DrawAreas(const vector<Area>& areas, float range, const vector<Area2*>& areas2);
@@ -244,18 +243,16 @@ public:
 	TEX tCzern, tEmerytura, tPortal, tLightingLine, tRip, tEquipped, tWarning, tError;
 	TexturePtr tKrew[BLOOD_MAX], tKrewSlad[BLOOD_MAX], tIskra, tSpawn;
 	TexturePack tFloor[2], tWall[2], tCeil[2], tFloorBase, tWallBase, tCeilBase;
-	ID3DXEffect* eMesh, *eParticle, *eSkybox, *eTerrain, *eArea, *ePostFx, *eGlow, *eGrass;
-	D3DXHANDLE techMesh, techMeshDir, techMeshSimple, techMeshSimple2, techMeshExplo, techParticle, techSkybox, techTerrain, techArea, techTrail, techGlowMesh,
-		techGlowAni, techGrass;
+	ID3DXEffect* eMesh, *eSkybox, *eTerrain, *eArea, *ePostFx, *eGlow, *eGrass;
+	D3DXHANDLE techMesh, techMeshDir, techMeshSimple, techMeshSimple2, techMeshExplo, techSkybox, techTerrain, techArea, techGlowMesh, techGlowAni, techGrass;
 	D3DXHANDLE hAniCombined, hAniWorld, hAniBones, hAniTex, hAniFogColor, hAniFogParam, hAniTint, hAniHairColor, hAniAmbientColor, hAniLightDir,
 		hAniLightColor, hAniLights, hMeshCombined, hMeshWorld, hMeshTex, hMeshFogColor, hMeshFogParam, hMeshTint, hMeshAmbientColor, hMeshLightDir,
-		hMeshLightColor, hMeshLights, hParticleCombined, hParticleTex, hSkyboxCombined, hSkyboxTex, hAreaCombined, hAreaColor, hAreaPlayerPos, hAreaRange,
-		hTerrainCombined, hTerrainWorld, hTerrainTexBlend, hTerrainTex[5], hTerrainColorAmbient, hTerrainColorDiffuse, hTerrainLightDir, hTerrainFogColor,
-		hTerrainFogParam, hGuiSize, hGuiTex, hPostTex, hPostPower, hPostSkill, hGlowCombined, hGlowBones, hGlowColor, hGlowTex, hGrassViewProj, hGrassTex,
-		hGrassFogColor, hGrassFogParams, hGrassAmbientColor;
+		hMeshLightColor, hMeshLights, hSkyboxCombined, hSkyboxTex, hAreaCombined, hAreaColor, hAreaPlayerPos, hAreaRange, hTerrainCombined, hTerrainWorld,
+		hTerrainTexBlend, hTerrainTex[5], hTerrainColorAmbient, hTerrainColorDiffuse, hTerrainLightDir, hTerrainFogColor, hTerrainFogParam, hGuiSize, hGuiTex,
+		hPostTex, hPostPower, hPostSkill, hGlowCombined, hGlowBones, hGlowColor, hGlowTex, hGrassViewProj, hGrassTex, hGrassFogColor, hGrassFogParams,
+		hGrassAmbientColor;
 	SOUND sGulp, sCoins, sBow[2], sDoor[3], sDoorClosed[2], sDoorClose, sItem[10], sChestOpen, sChestClose, sDoorBudge, sRock, sWood, sCrystal,
 		sMetal, sBody[5], sBone, sSkin, sArenaFight, sArenaWin, sArenaLost, sUnlock, sEvil, sEat, sSummon, sZap;
-	VB vbParticle;
 	static cstring txGoldPlus, txQuestCompletedGold;
 	cstring txLoadGuiTextures, txLoadParticles, txLoadPhysicMeshes, txLoadModels, txLoadSpells, txLoadSounds, txLoadMusic, txGenerateWorld;
 	TexturePtr tTrawa, tTrawa2, tTrawa3, tDroga, tZiemia, tPole;
@@ -317,11 +314,9 @@ public:
 	//---------------------------------
 	// DRAWING
 	Matrix mat;
-	int particle_count;
 	VB vbDungeon;
 	IB ibDungeon;
 	Int2 dungeon_part[16], dungeon_part2[16], dungeon_part3[16], dungeon_part4[16];
-	vector<ParticleEmitter*> pes2;
 	Vec4 fog_color, fog_params, ambient_color;
 	bool cl_fog, cl_lighting, draw_particle_sphere, draw_unit_radius, draw_hitbox, draw_phy, draw_col;
 	BaseObject obj_alpha;

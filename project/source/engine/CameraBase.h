@@ -4,4 +4,5 @@
 struct CameraBase
 {
 	Matrix matViewProj;
+	Matrix matViewInv;
 };

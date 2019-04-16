@@ -568,7 +568,6 @@ void Game::LoadShaders()
 
 	Render* render = GetRender();
 	eMesh = render->CompileShader("mesh.fx");
-	eParticle = render->CompileShader("particle.fx");
 	eSkybox = render->CompileShader("skybox.fx");
 	eTerrain = render->CompileShader("terrain.fx");
 	eArea = render->CompileShader("area.fx");
@@ -587,16 +586,14 @@ void Game::SetupShaders()
 	techMeshSimple = eMesh->GetTechniqueByName("mesh_simple");
 	techMeshSimple2 = eMesh->GetTechniqueByName("mesh_simple2");
 	techMeshExplo = eMesh->GetTechniqueByName("mesh_explo");
-	techParticle = eParticle->GetTechniqueByName("particle");
-	techTrail = eParticle->GetTechniqueByName("trail");
 	techSkybox = eSkybox->GetTechniqueByName("skybox");
 	techTerrain = eTerrain->GetTechniqueByName("terrain");
 	techArea = eArea->GetTechniqueByName("area");
 	techGlowMesh = eGlow->GetTechniqueByName("mesh");
 	techGlowAni = eGlow->GetTechniqueByName("ani");
 	techGrass = eGrass->GetTechniqueByName("grass");
-	assert(techMesh && techMeshDir && techMeshSimple && techMeshSimple2 && techMeshExplo && techParticle && techTrail && techSkybox && techTerrain && techArea
-		&& techGlowMesh && techGlowAni && techGrass);
+	assert(techMesh && techMeshDir && techMeshSimple && techMeshSimple2 && techMeshExplo && techSkybox && techTerrain && techArea && techGlowMesh
+		&& techGlowAni && techGrass);
 
 	hMeshCombined = eMesh->GetParameterByName(nullptr, "matCombined");
 	hMeshWorld = eMesh->GetParameterByName(nullptr, "matWorld");
@@ -610,10 +607,6 @@ void Game::SetupShaders()
 	hMeshLights = eMesh->GetParameterByName(nullptr, "lights");
 	assert(hMeshCombined && hMeshWorld && hMeshTex && hMeshFogColor && hMeshFogParam && hMeshTint && hMeshAmbientColor && hMeshLightDir && hMeshLightColor
 		&& hMeshLights);
-
-	hParticleCombined = eParticle->GetParameterByName(nullptr, "matCombined");
-	hParticleTex = eParticle->GetParameterByName(nullptr, "tex0");
-	assert(hParticleCombined && hParticleTex);
 
 	hSkyboxCombined = eSkybox->GetParameterByName(nullptr, "matCombined");
 	hSkyboxTex = eSkybox->GetParameterByName(nullptr, "tex0");
@@ -657,6 +650,7 @@ void Game::SetupShaders()
 	hGrassFogColor = eGrass->GetParameterByName(nullptr, "fogColor");
 	hGrassFogParams = eGrass->GetParameterByName(nullptr, "fogParam");
 	hGrassAmbientColor = eGrass->GetParameterByName(nullptr, "ambientColor");
+	assert(hGrassViewProj && hGrassTex && hGrassFogColor && hGrassFogParams && hGrassAmbientColor);
 }
 
 //=================================================================================================

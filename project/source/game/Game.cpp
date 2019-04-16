@@ -70,14 +70,13 @@ const float SPAWN_SOUND_DIST = 1.5f;
 const float MAGIC_SCROLL_SOUND_DIST = 1.5f;
 
 //=================================================================================================
-Game::Game() : have_console(false), vbParticle(nullptr), quickstart(QUICKSTART_NONE), inactive_update(false), last_screenshot(0), cl_fog(true),
-cl_lighting(true), draw_particle_sphere(false), draw_unit_radius(false), draw_hitbox(false), noai(false), testing(false), game_speed(1.f), devmode(false),
-force_seed(0), next_seed(0), force_seed_all(false), debug_info(false), dont_wander(false), check_updates(true), skip_tutorial(false), portal_anim(0),
-debug_info2(false), music_type(MusicType::None), end_of_game(false), prepared_stream(64 * 1024), paused(false), draw_flags(0xFFFFFFFF),
-prev_game_state(GS_LOAD), rt_save(nullptr), rt_item(nullptr), rt_item_rot(nullptr), cl_postfx(true), mp_timeout(10.f), cl_normalmap(true),
-cl_specularmap(true), dungeon_tex_wrap(true), profiler_mode(0), vbInstancing(nullptr), vb_instancing_max(0), screenshot_format(ImageFormat::JPG),
-quickstart_class(Class::RANDOM), game_state(GS_LOAD), default_devmode(false), default_player_devmode(false), quickstart_slot(SaveSlot::MAX_SLOTS),
-super_shader(new SuperShader)
+Game::Game() : have_console(false), quickstart(QUICKSTART_NONE), inactive_update(false), last_screenshot(0), cl_fog(true), cl_lighting(true),
+draw_particle_sphere(false), draw_unit_radius(false), draw_hitbox(false), noai(false), testing(false), game_speed(1.f), devmode(false), force_seed(0),
+next_seed(0), force_seed_all(false), debug_info(false), dont_wander(false), check_updates(true), skip_tutorial(false), portal_anim(0), debug_info2(false),
+music_type(MusicType::None), end_of_game(false), prepared_stream(64 * 1024), paused(false), draw_flags(0xFFFFFFFF), prev_game_state(GS_LOAD), rt_save(nullptr),
+rt_item(nullptr), rt_item_rot(nullptr), cl_postfx(true), mp_timeout(10.f), cl_normalmap(true), cl_specularmap(true), dungeon_tex_wrap(true), profiler_mode(0),
+vbInstancing(nullptr), vb_instancing_max(0), screenshot_format(ImageFormat::JPG), quickstart_class(Class::RANDOM), game_state(GS_LOAD), default_devmode(false),
+default_player_devmode(false), quickstart_slot(SaveSlot::MAX_SLOTS), super_shader(new SuperShader)
 {
 #ifdef _DEBUG
 	default_devmode = true;
@@ -618,8 +617,6 @@ void Game::OnReload()
 {
 	if(eMesh)
 		V(eMesh->OnResetDevice());
-	if(eParticle)
-		V(eParticle->OnResetDevice());
 	if(eTerrain)
 		V(eTerrain->OnResetDevice());
 	if(eSkybox)
@@ -650,8 +647,6 @@ void Game::OnReset()
 
 	if(eMesh)
 		V(eMesh->OnLostDevice());
-	if(eParticle)
-		V(eParticle->OnLostDevice());
 	if(eTerrain)
 		V(eTerrain->OnLostDevice());
 	if(eSkybox)
@@ -672,7 +667,6 @@ void Game::OnReset()
 		SafeRelease(tPostEffect[i]);
 	}
 	SafeRelease(vbFullscreen);
-	SafeRelease(vbParticle);
 	SafeRelease(vbDungeon);
 	SafeRelease(ibDungeon);
 	SafeRelease(vbInstancing);
@@ -827,7 +821,6 @@ void Game::ClearPointers()
 {
 	// shadery
 	eMesh = nullptr;
-	eParticle = nullptr;
 	eTerrain = nullptr;
 	eSkybox = nullptr;
 	eArea = nullptr;
@@ -836,7 +829,6 @@ void Game::ClearPointers()
 	eGrass = nullptr;
 
 	// bufory wierzcho³ków i indeksy
-	vbParticle = nullptr;
 	vbDungeon = nullptr;
 	ibDungeon = nullptr;
 	vbFullscreen = nullptr;
@@ -879,7 +871,6 @@ void Game::OnCleanup()
 	super_shader->Cleanup();
 
 	// bufory wierzcho³ków i indeksy
-	SafeRelease(vbParticle);
 	SafeRelease(vbDungeon);
 	SafeRelease(ibDungeon);
 	SafeRelease(vbFullscreen);
@@ -1456,7 +1447,6 @@ void Game::ReloadShaders()
 	{
 		Render* render = GetRender();
 		eMesh = render->CompileShader("mesh.fx");
-		eParticle = render->CompileShader("particle.fx");
 		eSkybox = render->CompileShader("skybox.fx");
 		eTerrain = render->CompileShader("terrain.fx");
 		eArea = render->CompileShader("area.fx");
@@ -1480,7 +1470,6 @@ void Game::ReloadShaders()
 void Game::ReleaseShaders()
 {
 	SafeRelease(eMesh);
-	SafeRelease(eParticle);
 	SafeRelease(eTerrain);
 	SafeRelease(eSkybox);
 	SafeRelease(eArea);
