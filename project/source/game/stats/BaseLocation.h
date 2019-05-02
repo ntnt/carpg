@@ -64,15 +64,19 @@ enum BaseLocationOptions
 struct RoomType;
 
 //-----------------------------------------------------------------------------
-struct RoomStr
+template<typename T>
+struct NameValue
 {
 	cstring id;
-	RoomType* room;
+	T* value;
 
-	explicit RoomStr(cstring id) : id(id), room(nullptr)
-	{
-	}
+	NameValue()
+	NameValue(cstring id) : id(id), value(nullptr) {}
 };
+
+//-----------------------------------------------------------------------------
+typedef NameValue<RoomType> RoomStr;
+typedef NameValue<UnitGroup> GroupStr;
 
 //-----------------------------------------------------------------------------
 struct RoomStrChance
@@ -144,7 +148,7 @@ struct BaseLocation
 	RoomStrChance* rooms;
 	uint room_count, room_total;
 	int door_chance, door_open, bars_chance;
-	SPAWN_GROUP sg1, sg2, sg3;
+	GroupStr sg1, sg2, sg3;
 	int schance1, schance2, schance3;
 	int traps, tex2;
 	LocationTexturePack tex;

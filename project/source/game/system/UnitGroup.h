@@ -15,8 +15,10 @@ struct UnitGroup
 
 	string id;
 	vector<Entry> entries;
-	int total;
+	int total, food_mod;
+	bool orc_food;
 
+	UnitGroup() : food_mod(0), orc_food(false) {}
 	bool HaveLeader() const;
 	UnitData* GetLeader(int level) const;
 	Int2 GetLevelRange() const;

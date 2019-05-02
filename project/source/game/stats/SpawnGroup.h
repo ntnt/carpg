@@ -37,10 +37,9 @@ struct SpawnGroup
 	UnitGroup* unit_group;
 	KONCOWKA k;
 	int food_mod;
-	bool orc_food;
 
-	SpawnGroup(cstring id, cstring unit_group_id, cstring name, KONCOWKA k, int food_mod, bool orc_food) : id(id), unit_group_id(unit_group_id),
-		name(name), k(k), unit_group(nullptr), food_mod(food_mod), orc_food(orc_food)
+	SpawnGroup(cstring id, cstring unit_group_id, cstring name, KONCOWKA k, int food_mod) : id(id), unit_group_id(unit_group_id),
+		name(name), k(k), unit_group(nullptr), food_mod(food_mod)
 	{
 	}
 

@@ -2985,11 +2985,17 @@ unit xwokloiz : base_human {
 //------------------------------------------------------------------------------
 // Unit groups
 //------------------------------------------------------------------------------
+group empty {
+	food_mod -1
+}
+
 group goblins {
 	goblin 10
 	goblin_hunter 7
 	goblin_fighter 7
 	goblin_chief leader 2
+	
+	orc_food 1
 }
 
 group orcs {
@@ -2999,6 +3005,8 @@ group orcs {
 	orc_warius 4
 	orc_chief leader 2
 	orc_shaman 3
+	
+	orc_food 1
 }
 
 group bandits {
@@ -3026,6 +3034,8 @@ group undead {
 	zombie 10
 	zombie_rotting 8
 	zombie_ancient 6
+	
+	food_mod -2
 }
 
 group necros {
@@ -3035,12 +3045,16 @@ group necros {
 	undead_guard 6
 	undead_archer 6
 	group undead
+	
+	food_mod -1
 }
 
 group evils {
 	evil_cleric leader 3
 	evil_cleric2 leader 3
 	group undead
+	
+	food_mod -1
 }
 
 group mages {
@@ -3053,11 +3067,15 @@ group mages {
 group golems {
 	golem_stone 1
 	golem_iron 1
+	
+	food_mod -2
 }
 
 group mages_and_golems {
 	group mages
 	group golems
+	
+	food_mod -1
 }
 
 group wolfs {
@@ -3112,6 +3130,8 @@ group wagon_guards {
 
 group unk {
 	unk 1
+	
+	food_mod -2
 }
 
 group_list arena_easy {
