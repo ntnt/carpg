@@ -53,7 +53,7 @@ void CheckBox::Update(float dt)
 				}
 			}
 		}
-		else if(Key.Pressed(VK_LBUTTON))
+		else if(Key.IsPressed(VK_LBUTTON))
 			state = PRESSED;
 		else
 			state = FLASH;

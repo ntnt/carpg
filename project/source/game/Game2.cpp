@@ -726,7 +726,7 @@ void Game::UpdateGame(float dt)
 			InsideLocation* inside = (InsideLocation*)L.location;
 			InsideLocationLevel& lvl = inside->GetLevelData();
 
-			if(Key.Pressed(VK_OEM_COMMA) && Key.Down(VK_SHIFT) && inside->HaveUpStairs())
+			if(Key.IsPressed(VK_OEM_COMMA) && Key.Down(VK_SHIFT) && inside->HaveUpStairs())
 			{
 				if(!Key.Down(VK_CONTROL))
 				{
@@ -760,7 +760,7 @@ void Game::UpdateGame(float dt)
 					}
 				}
 			}
-			if(Key.Pressed(VK_OEM_PERIOD) && Key.Down(VK_SHIFT) && inside->HaveDownStairs())
+			if(Key.IsPressed(VK_OEM_PERIOD) && Key.Down(VK_SHIFT) && inside->HaveDownStairs())
 			{
 				if(!Key.Down(VK_CONTROL))
 				{
@@ -795,7 +795,7 @@ void Game::UpdateGame(float dt)
 				}
 			}
 		}
-		else if(Key.Pressed(VK_OEM_COMMA) && Key.Down(VK_SHIFT) && Key.Down(VK_CONTROL))
+		else if(Key.IsPressed(VK_OEM_COMMA) && Key.Down(VK_SHIFT) && Key.Down(VK_CONTROL))
 		{
 			if(Net::IsLocal())
 			{
@@ -848,7 +848,7 @@ void Game::UpdateGame(float dt)
 				}
 				else if(!L.camera.free_rot)
 				{
-					L.camera.free_rot_key = GKey.KeyDoReturn(GK_ROTATE_CAMERA, &KeyStates::Pressed);
+					L.camera.free_rot_key = GKey.KeyDoReturn(GK_ROTATE_CAMERA, &KeyStates::IsPressed);
 					if(L.camera.free_rot_key != VK_NONE)
 					{
 						L.camera.real_rot.x = Clip(pc->unit->rot + PI);

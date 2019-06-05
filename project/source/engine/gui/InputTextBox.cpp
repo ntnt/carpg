@@ -57,7 +57,7 @@ void InputTextBox::Update(float dt)
 			if(!focus && Key.Focus() && Key.PressedRelease(VK_LBUTTON))
 				focus = true;
 		}
-		else if(focus && Key.Focus() && Key.Pressed(VK_LBUTTON))
+		else if(focus && Key.Focus() && Key.IsPressed(VK_LBUTTON))
 		{
 			focus = false;
 			release_key = true;

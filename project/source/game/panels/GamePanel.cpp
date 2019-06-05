@@ -209,7 +209,7 @@ void GamePanelContainer::Update(float dt)
 		if(top)
 		{
 			top->mouse_focus = true;
-			if((Key.Pressed(VK_LBUTTON) || Key.Pressed(VK_RBUTTON)) && top->order != order - 1)
+			if((Key.IsPressed(VK_LBUTTON) || Key.IsPressed(VK_RBUTTON)) && top->order != order - 1)
 			{
 				ctrls.back()->Event(GuiEvent_LostFocus);
 				ctrls.back()->focus = false;

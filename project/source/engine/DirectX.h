@@ -12,12 +12,19 @@
 #else
 #	define V(x) (x)
 #endif
+//-----------------------------------------------------------------------------
+// template pointer-type check
+template<typename T>
+struct is_pointer { static const bool value = false; };
+
+template<typename T>
+struct is_pointer<T*> { static const bool value = true; };
 
 //-----------------------------------------------------------------------------
 template<typename T>
 inline void SafeRelease(T& x)
 {
-	if(x)
+	if((is_pointer<T>::value) && (x != nullptr))
 	{
 		x->Release();
 		x = nullptr;

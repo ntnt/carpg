@@ -971,7 +971,7 @@ void GameGui::Update(float dt)
 			id = shortcut_index;
 			if(!GUI.HaveDialog())
 			{
-				if(Key.Pressed(VK_LBUTTON))
+				if(Key.IsPressed(VK_LBUTTON))
 				{
 					drag_and_drop = 1;
 					drag_and_drop_pos = GUI.cursor_pos;

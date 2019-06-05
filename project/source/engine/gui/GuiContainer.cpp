@@ -38,7 +38,7 @@ void GuiContainer::Update(float dt)
 			}
 			if(IS_SET(it->second, F_CLICK_TO_FOCUS))
 			{
-				if(it->first->IsInside(GUI.cursor_pos) && (Key.Pressed(VK_LBUTTON) || Key.Pressed(VK_RBUTTON)))
+				if(it->first->IsInside(GUI.cursor_pos) && (Key.IsPressed(VK_LBUTTON) || Key.IsPressed(VK_RBUTTON)))
 				{
 					if(!it->first->focus)
 					{

@@ -2610,7 +2610,7 @@ bool InventoryPanel::HandleLeftClick(const Item* item)
 				return true;
 			}
 		}
-		else if(Key.Pressed(VK_LBUTTON))
+		else if(Key.IsPressed(VK_LBUTTON))
 		{
 			drag_and_drop = true;
 			drag_and_drop_pos = GUI.cursor_pos;

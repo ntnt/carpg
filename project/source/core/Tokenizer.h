@@ -14,7 +14,6 @@ namespace tokenizer
 		T_INT,
 		T_FLOAT,
 		T_KEYWORD,
-
 		T_KEYWORD_GROUP,
 		T_NUMBER,
 		T_TEXT,
@@ -323,13 +322,8 @@ namespace tokenizer
 		void EnableKeywordGroup(int group);
 		void DisableKeywordGroup(int group);
 
-		Formatter& StartUnexpected() const { formatter.Start(); return formatter; }
-		Formatter& SeekStartUnexpected() const
-		{
-			formatter.sd = seek;
-			formatter.Start();
-			return formatter;
-		}
+		Formatter& StartUnexpected() const;
+		Formatter& SeekStartUnexpected() const;
 		__declspec(noreturn) void Unexpected(const SeekData& seek_data) const
 		{
 			formatter.sd = &seek_data;

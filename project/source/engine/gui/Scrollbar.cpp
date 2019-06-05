@@ -100,7 +100,7 @@ void Scrollbar::Update(float dt)
 			}
 		}
 	}
-	else if(mouse_focus && Key.Pressed(VK_LBUTTON))
+	else if(mouse_focus && Key.IsPressed(VK_LBUTTON))
 	{
 		if(cpos.x >= 0 && cpos.y >= 0 && cpos.x < size.x && cpos.y < size.y)
 		{

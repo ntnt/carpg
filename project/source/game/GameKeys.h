@@ -112,9 +112,9 @@ public:
 	byte PressedR(GAME_KEYS gk) const
 	{
 		const GameKey& k = keys[gk];
-		if(Key.Pressed(k[0]))
+		if(Key.IsPressed(k[0]))
 			return k[0];
-		else if(Key.Pressed(k[1]))
+		else if(Key.IsPressed(k[1]))
 			return k[1];
 		else
 			return VK_NONE;

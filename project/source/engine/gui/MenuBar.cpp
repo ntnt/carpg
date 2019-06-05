@@ -69,9 +69,9 @@ void MenuBar::Update(float dt)
 	{
 		if(item->rect.IsInside(GUI.cursor_pos))
 		{
-			if(down || Key.Pressed(VK_LBUTTON))
+			if(down || Key.IsPressed(VK_LBUTTON))
 			{
-				if((item != selected || item->mode != Item::Down) && (Key.Pressed(VK_LBUTTON) || GUI.MouseMoved()))
+				if((item != selected || item->mode != Item::Down) && (Key.IsPressed(VK_LBUTTON) || GUI.MouseMoved()))
 				{
 					EnsureMenu(item);
 					item->menu->ShowMenu(Int2(item->rect.LeftBottom()));

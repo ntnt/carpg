@@ -234,7 +234,7 @@ void ActionPanel::UpdateGroup(uint count, int group, int& group_result, int& id_
 			{
 				group_result = group;
 				id_result = index;
-				if(Key.Focus() && Key.Pressed(VK_LBUTTON))
+				if(Key.Focus() && Key.IsPressed(VK_LBUTTON))
 				{
 					drag_and_drop = true;
 					drag_and_drop_pos = GUI.cursor_pos;

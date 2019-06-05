@@ -620,7 +620,18 @@ uint Tokenizer::FindFirstOf(SeekData& s, cstring _str, uint _start)
 
 	return string::npos;
 }
-
+//=================================================================================================
+Tokenizer::Formatter& Tokenizer::StartUnexpected() const 
+{ 
+	formatter.Start(); 
+	return formatter; 
+}
+Tokenizer::Formatter& Tokenizer::SeekStartUnexpected() const
+{
+	formatter.sd = seek;
+	formatter.Start();
+	return formatter;
+}
 //=================================================================================================
 uint Tokenizer::FindFirstOfStr(SeekData& s, cstring _str, uint _start)
 {

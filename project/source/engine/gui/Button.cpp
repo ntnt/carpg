@@ -84,7 +84,7 @@ void Button::Update(float dt)
 					parent->Event((GuiEvent)id);
 			}
 		}
-		else if(Key.Pressed(VK_LBUTTON))
+		else if(Key.IsPressed(VK_LBUTTON))
 			state = DOWN;
 		else
 			state = HOVER;

@@ -683,7 +683,7 @@ bool TreeView::Update(TreeNode* node)
 			bool add = Key.Down(VK_SHIFT);
 			bool ctrl = Key.Down(VK_CONTROL);
 
-			if(menu && Key.Pressed(VK_RBUTTON))
+			if(menu && Key.IsPressed(VK_RBUTTON))
 			{
 				if(SelectNode(node, add, true, ctrl) && handler(A_BEFORE_MENU_SHOW, (int)node))
 				{
@@ -697,7 +697,7 @@ bool TreeView::Update(TreeNode* node)
 				global_pos.x + node->pos.x + 16 + offsetx, global_pos.y + offsety + item_height))
 			{
 				hover = node;
-				if(Key.Pressed(VK_LBUTTON))
+				if(Key.IsPressed(VK_LBUTTON))
 				{
 					node->SetCollapsed(!node->IsCollapsed());
 					SelectNode(node, add, false, ctrl);
@@ -706,7 +706,7 @@ bool TreeView::Update(TreeNode* node)
 				return true;
 			}
 
-			if(Key.Pressed(VK_LBUTTON))
+			if(Key.IsPressed(VK_LBUTTON))
 			{
 				if(!node->selected)
 					SelectNode(node, add, false, ctrl);

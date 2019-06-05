@@ -336,7 +336,7 @@ void WorldMapGui::Update(float dt)
 			if(Key.Up(VK_RBUTTON))
 				clicked = false;
 		}
-		if(Key.Pressed(VK_RBUTTON))
+		if(Key.IsPressed(VK_RBUTTON))
 		{
 			clicked = true;
 			follow = false;

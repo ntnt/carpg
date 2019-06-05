@@ -82,7 +82,7 @@ void FlowContainer::Update(float dt)
 						if(allow_select && fi->state != Button::DISABLED)
 						{
 							GUI.cursor_mode = CURSOR_HAND;
-							if(on_select && Key.Pressed(VK_LBUTTON))
+							if(on_select && Key.IsPressed(VK_LBUTTON))
 							{
 								selected = fi;
 								on_select();
@@ -108,7 +108,7 @@ void FlowContainer::Update(float dt)
 								return;
 							}
 						}
-						else if(Key.Pressed(VK_LBUTTON))
+						else if(Key.IsPressed(VK_LBUTTON))
 							fi->state = Button::DOWN;
 						else
 							fi->state = Button::HOVER;

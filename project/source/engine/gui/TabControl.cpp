@@ -143,7 +143,7 @@ void TabControl::Update(float dt)
 			if(rectf.IsInside(GUI.cursor_pos))
 			{
 				arrow_hover = -1;
-				if(Key.Pressed(VK_LBUTTON))
+				if(Key.IsPressed(VK_LBUTTON))
 				{
 					--tab_offset;
 					CalculateTabOffsetMax();
@@ -159,7 +159,7 @@ void TabControl::Update(float dt)
 			if(rectf.IsInside(GUI.cursor_pos))
 			{
 				arrow_hover = 1;
-				if(Key.Pressed(VK_LBUTTON))
+				if(Key.IsPressed(VK_LBUTTON))
 				{
 					++tab_offset;
 					CalculateTabOffsetMax();
@@ -180,15 +180,15 @@ void TabControl::Update(float dt)
 				if(tab->close_rect.IsInside(GUI.cursor_pos))
 				{
 					tab->close_hover = true;
-					if(Key.Pressed(VK_LBUTTON))
+					if(Key.IsPressed(VK_LBUTTON))
 						tab->Close();
 				}
-				else if(Key.Pressed(VK_LBUTTON) && tab != selected)
+				else if(Key.IsPressed(VK_LBUTTON) && tab != selected)
 				{
 					if(SelectInternal(tab))
 						hover = nullptr;
 				}
-				else if(Key.Pressed(VK_MBUTTON))
+				else if(Key.IsPressed(VK_MBUTTON))
 					tab->Close();
 				break;
 			}

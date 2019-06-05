@@ -3,7 +3,7 @@
 #include "Key.h"
 
 //-----------------------------------------------------------------------------
-// stan klawisza
+// key state
 enum InputState
 {
 	IS_UP,			// 00
@@ -23,21 +23,21 @@ enum ShortcutKey
 typedef delegate<void(int)> KeyDownCallback;
 
 //-----------------------------------------------------------------------------
-// stan klawiatury
+// keyboard state
 struct KeyStates
 {
 	KeyStates();
 
-	// proste sprawdzanie czy klawisz zosta³ wciœniêty, wyciœniêty, jest wciœniêty, jest wyciœniêty
-	bool Pressed(byte key) const { return keystate[key] == IS_PRESSED; }
+	// key state check (Pressed, Released, Down, Up)
+	bool IsPressed(byte key) const { return keystate[key] == IS_PRESSED; }
 	bool Released(byte key) const { return keystate[key] == IS_RELEASED; }
 	bool Down(byte key) const { return keystate[key] >= IS_DOWN; }
 	bool Up(byte key) const { return keystate[key] <= IS_RELEASED; }
 
-	// jednorazowe sprawdzanie czy klawisz jest wciœniêty, jeœli by³ to go ustawia na wyciœniêtego
+	// one-time key state check jest wciœniêty, jeœli by³ to go ustawia na wyciœniêtego
 	bool PressedRelease(byte key)
 	{
-		if(Pressed(key))
+		if(IsPressed)
 		{
 			keystate[key] = IS_DOWN;
 			return true;
@@ -48,7 +48,7 @@ struct KeyStates
 
 	bool PressedUp(byte key)
 	{
-		if(Pressed(key))
+		if(IsPressed(key))
 		{
 			keystate[key] = IS_UP;
 			return true;
@@ -77,7 +77,7 @@ struct KeyStates
 	}
 
 	// sprawdza czy zosta³a wprowadzona kombinacja klawiszy (np alt+f4)
-	bool DownPressed(byte k1, byte k2) const { return ((Down(k1) && Pressed(k2)) || (Down(k2) && Pressed(k1))); }
+	bool DownPressed(byte k1, byte k2) const { return ((Down(k1) && IsPressed(k2)) || (Down(k2) && IsPressed(k1))); }
 
 	// zwraca który z podanych klawiszy ma taki stan
 	byte ReturnState2(byte k1, byte k2, InputState state) const
@@ -111,7 +111,7 @@ struct KeyStates
 	// for example: Ctrl+A, shift and alt must not be pressed
 	bool Shortcut(int modifier, byte key, bool up = true)
 	{
-		if(shortcut_state == modifier && Pressed(key))
+		if(shortcut_state == modifier && IsPressed(key))
 		{
 			if(up)
 				SetState(key, IS_DOWN);

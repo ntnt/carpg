@@ -171,7 +171,7 @@ void TeamPanel::Update(float dt)
 			picked = -1;
 			GUI.Intersect(hitboxes, GUI.cursor_pos, &picked);
 
-			if(Key.Pressed(VK_LBUTTON))
+			if(Key.IsPressed(VK_LBUTTON))
 			{
 				picking = false;
 				if(picked >= 0)
@@ -191,7 +191,7 @@ void TeamPanel::Update(float dt)
 					}
 				}
 			}
-			else if(Key.Pressed(VK_RBUTTON))
+			else if(Key.IsPressed(VK_RBUTTON))
 				picking = false;
 		}
 	}

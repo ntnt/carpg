@@ -54,7 +54,7 @@ void CheckBoxGroup::Update(float dt)
 	int offset = 0;
 	for(auto item : items)
 	{
-		if(PointInRect(GUI.cursor_pos, box_x, box_y + offset, box_x + box_size.x, box_y + offset + box_size.y) && Key.Pressed(VK_LBUTTON))
+		if(PointInRect(GUI.cursor_pos, box_x, box_y + offset, box_x + box_size.x, box_y + offset + box_size.y) && Key.IsPressed(VK_LBUTTON))
 		{
 			item->checked = !item->checked;
 			TakeFocus(true);

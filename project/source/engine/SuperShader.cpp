@@ -102,10 +102,12 @@ uint SuperShader::GetShaderId(bool animated, bool have_binormals, bool fog, bool
 //=================================================================================================
 ID3DXEffect* SuperShader::GetShader(uint id)
 {
+	ID3DXEffect* shader = nullptr;
 	for(vector<Shader>::iterator it = shaders.begin(), end = shaders.end(); it != end; ++it)
 	{
+		// return 
 		if(it->id == id)
-			return it->e;
+			shader = it->e;
 	}
 
 	return CompileShader(id);

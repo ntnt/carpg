@@ -374,7 +374,7 @@ void CreateCharacterPanel::Update(float dt)
 			else
 				rotating = false;
 		}
-		else if(Key.Pressed(VK_LBUTTON))
+		else if(Key.IsPressed(VK_LBUTTON))
 		{
 			rotate = true;
 			rotating = true;
